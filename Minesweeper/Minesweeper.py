@@ -52,11 +52,28 @@ class Minesweeper:
             self.end_game()
         else:
             mines_around = self.board[row][col]
+            self.buttons[row][col].config(text=str(mines_around), state=tk.DISABLED)
             if mines_around == 0:
-                self.reveal_empty_cells(row, col)
-            else:
-                self.buttons[row][col].config(text=str(mines_around), state=tk.DISABLED)
-                self.check_win()
+                self.auto_reveal_cells(row, col)
+            self.check_win()
+        
+    def auto_reveal_cells(self, row, col):
+        for r in range(row - 1, row + 2):
+            for c in range(col - 1, col + 2):
+                if 0 <= r < self.rows and 0 <= c < self.cols and not self.is_clicked[r][c]:
+                    self.click_button(r, c)
+
+    def dfs_reveal_empty_cells(self, row, col):
+        if not (0 <= row < self.rows and 0 <= col < self.cols) or self.is_clicked[row][col]:
+            return
+        
+        self.is_clicked[row][col] = True
+        self.buttons[row][col].config(state=tk.DISABLED)
+
+        for r in range(row - 1, row + 2):
+            for c in range(col - 1, col + 2):
+                if 0 <= r < self.rows and 0 <= c < self.cols:
+                    self.click_button(r, c)
 
     def place_flag(self, event, row, col):
         if self.game_over or self.is_clicked[row][col]:
@@ -68,12 +85,6 @@ class Minesweeper:
         elif self.flags > 0:
             self.buttons[row][col].config(text="F", bg="yellow")
             self.flags -= 1
-
-    def reveal_empty_cells(self, row, col):
-        for r in range(row - 1, row + 2):
-            for c in range(col - 1, col + 2):
-                if 0 <= r < self.rows and 0 <= c < self.cols and not self.is_clicked[r][c]:
-                    self.click_button(r, c)
 
     def check_win(self):
         unclicked_cells = sum(not self.is_clicked[r][c] for r in range(self.rows) for c in range(self.cols))
