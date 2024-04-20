@@ -23,7 +23,8 @@ Make sure you have Python installed on your computer. You can download Python fr
 4. After installing the dependencies, you can run the Minesweeper game with the following command:
    ```bash
    python minesweeper.py
-##Gameplay Instructions
+   
+## Gameplay Instruction
 
 - Left-click on a cell to reveal it. If the cell contains a mine, the game ends.
 - Right-click on a cell to place a flag. Flags can help you mark potential mine locations.
