@@ -12,7 +12,7 @@ Make sure you have Python installed on your computer. You can download Python fr
 
 1. Clone the repository to your local machine using Git:
    ```bash
-   git clone https://github.com/your-username/minesweeper-game.git
+   git clone https://github.com/keshav6740/minesweeper-game.git
 
 2. Navigate to the project directory:
    ```bash
